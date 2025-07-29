@@ -24,7 +24,7 @@ int main() {
     player2.setFillColor(sf::Color::Cyan);
 
 
-  sf::RenderWindow window(sf::VideoMode({800, 800}), "SFML", sf::Style::Close);
+  sf::RenderWindow window(sf::VideoMode({800, 800}), "Atari Pong", sf::Style::Close);
   while (window.isOpen()) {
     window.clear();
     if (auto event = window.pollEvent()) {
@@ -32,11 +32,17 @@ int main() {
         window.close();
       }
     }
-    
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)){player1.move({0.f,-1.f});};
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)){player1.move({0.f,1.f});};
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)){player2.move({0.f,-1.f});};
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)){player2.move({0.f,1.f});};
+
+    sf::Vector2 player1_position = player1.getPosition(); //узнать позицию 1
+    float p1h = player1.getSize().y; // узнаем высоту 1
+
+    sf::Vector2 player2_position = player2.getPosition(); // узнать позицию 2
+    float p2h = player2.getSize().y; // высота 2
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) && player1_position.y > 0){player1.move({0.f,-1.f});};
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) && player1_position.y + p1h < 800) {player1.move({0.f,1.f});};
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up) && player2_position.y > 0){player2.move({0.f,-1.f});};
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down) && player2_position.y + p2h < 800){player2.move({0.f,1.f});};
 
 
 
