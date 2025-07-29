@@ -32,6 +32,28 @@ int main() {
         window.close();
       }
     }
+    
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)){player1.move({0.f,-1.f});};
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)){player1.move({0.f,1.f});};
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)){player2.move({0.f,-1.f});};
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)){player2.move({0.f,1.f});};
+
+
+
+    /* Еще не проверено (протестировано)
+    if (sf::Joystick::isConnected(0)){
+        float y = sf::Joystick::getAxisPosition(0, sf::Joystick::Axis::Y);
+        float deadzone = 15.f; // 
+
+        if (y < deadzone) {
+            player1.move ({0.f,-1.f}); // стик вверх
+        }
+        if (y > deadzone){
+            player1.move ({0.f,1.f}); // стик вниз
+        }
+    }
+    */
+
     window.draw(background);
     window.draw(ball);
     window.draw(player1);
