@@ -4,6 +4,8 @@ sf::RectangleShape background;
 sf::CircleShape ball;
 sf::RectangleShape player1;
 sf::RectangleShape player2;
+sf::RectangleShape borders1;
+sf::RectangleShape borders2;
 
 int main() {
     background.setPosition(sf::Vector2f(0,0));
@@ -23,6 +25,14 @@ int main() {
     player2.setPosition(sf::Vector2f(700,background.getSize().y / 2 - player2.getSize().y / 2));
     player2.setFillColor(sf::Color::Cyan);
 
+    borders1.setSize(sf::Vector2f(800,40));
+    borders1.setPosition(sf::Vector2f(0,0));
+    borders1.setFillColor(sf::Color::White);
+
+    borders2.setSize(sf::Vector2f(800,40));
+    borders2.setPosition(sf::Vector2f(0,background.getSize().y - borders2.getSize().y));
+    borders2.setFillColor(sf::Color::White);
+
 
   sf::RenderWindow window(sf::VideoMode({800, 800}), "Atari Pong", sf::Style::Close);
   while (window.isOpen()) {
@@ -39,11 +49,11 @@ int main() {
     sf::Vector2 player2_position = player2.getPosition(); // узнать позицию 2
     float p2h = player2.getSize().y; // высота 2
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) && player1_position.y > 0){player1.move({0.f,-1.f});};
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) && player1_position.y + p1h < 800) {player1.move({0.f,1.f});};
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up) && player2_position.y > 0){player2.move({0.f,-1.f});};
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down) && player2_position.y + p2h < 800){player2.move({0.f,1.f});};
-
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) && player1_position.y > borders1.getSize().y){player1.move({0.f,-1.f});};
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) && player1_position.y + p1h < borders2.getPosition().y) {player1.move({0.f,1.f});};
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up) && player2_position.y > borders1.getSize().y) {player2.move({0.f,-1.f});};
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down) && player2_position.y + p2h < borders2.getPosition().y){player2.move({0.f,1.f});};
+    
 
 
     /* Еще не проверено (протестировано)
@@ -64,6 +74,8 @@ int main() {
     window.draw(ball);
     window.draw(player1);
     window.draw(player2);
+    window.draw(borders1);
+    window.draw(borders2);
     window.display();
   }
 }
